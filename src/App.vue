@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbars></Navbars>
+      <Navbars></Navbars>
     <v-main>
       <router-view />
     </v-main>
@@ -8,7 +8,9 @@
 </template>
 
 <script>
-import Navbars from './components/navbars/Navbars.vue';
+//import Filtrado from "./components/Filtrado.vue";
+import Navbars from "./components/navbars/Navbars.vue";
+
 export default {
   name: "App",
   data: () => ({
@@ -16,6 +18,7 @@ export default {
   }),
   components: {
     Navbars,
+    
   },
 };
 </script>

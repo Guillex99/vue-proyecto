@@ -1,16 +1,12 @@
 <template>
-<div>
-<NavbarGrande></NavbarGrande>
-<NavbarChiquito></NavbarChiquito>
-</div>
- 
+<NavbarGrande></NavbarGrande> 
 </template>
 
 <script>
   import NavbarGrande from './NavbarGrande.vue'
 //  import NavbarChiquito from './NavbarChiquito.vue'
   export default {
-      name: "Plantilla",
+      name: "Navbars",
       components: {
         NavbarGrande,
       },
