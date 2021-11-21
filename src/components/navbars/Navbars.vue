@@ -1,22 +1,17 @@
 <template>
-<NavbarGrande></NavbarGrande> 
+  <NavbarGrande></NavbarGrande>
 </template>
 
 <script>
-  import NavbarGrande from './NavbarGrande.vue'
+import NavbarGrande from "./NavbarGrande.vue";
 //  import NavbarChiquito from './NavbarChiquito.vue'
-  export default {
-      name: "Navbars",
-      components: {
-        NavbarGrande,
-      },
-    data: () => ({
-      links: [
-        'Dashboard',
-        'Messages',
-        'Profile',
-        'Updates',
-      ],
-    })
-  }
+export default {
+  name: "Navbars",
+  components: {
+    NavbarGrande,
+  },
+  data: () => ({
+    links: ["Dashboard", "Messages", "Profile", "Updates"],
+  }),
+};
 </script>

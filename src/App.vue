@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-      <Navbars></Navbars>
+  <v-app id="inspire">
+    <Navbars></Navbars>
     <v-main>
       <router-view />
     </v-main>
@@ -18,7 +18,6 @@ export default {
   }),
   components: {
     Navbars,
-    
   },
 };
 </script>
