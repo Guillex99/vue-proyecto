@@ -1,5 +1,4 @@
 <template>
-
   <v-app-bar app color="yellow darken-2" flat>
     <v-container class="py-0 fill-height">
       <v-icon class="d-none d-lg-flex d-xl-flex d-md-flex" color="white">
@@ -81,7 +80,7 @@
         elevation="3"
         :to="{ path: '/Nuevoanuncio' }"
       >
-<!-- Poner adentro del btn-->        
+        <!-- Poner adentro del btn-->
 
         <v-icon color="white"> mdi-plus </v-icon>
       </v-btn>

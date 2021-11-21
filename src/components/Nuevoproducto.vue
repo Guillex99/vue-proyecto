@@ -18,7 +18,7 @@
             <v-radio :label="`Nuevo`" :value="Nuevo"></v-radio>
             <v-radio :label="`Usado`" :value="Usado"></v-radio>
           </v-radio-group>
-         {{console.log(estado)}} 
+
           <v-text-field
             v-model="marca"
             :rules="marcaRules"
@@ -222,7 +222,6 @@ export default {
 import { db } from "../db.js";
 import { st } from "../db.js";
 export default {
-  
   data() {
     return {
       estado: "Nuevo",
@@ -255,7 +254,6 @@ export default {
   },
   methods: {
     agregar() {
-      
       let nuevo = {
         estado: this.estado,
         nid: this.nid,
@@ -323,6 +321,7 @@ export default {
       } else {
         this.nid = this.productos.length + 1;
       }
+      console.log(this.nid);
     },
     limpiarCarpeta() {
       // let images = [];
@@ -347,7 +346,6 @@ export default {
         });
     },
     upload() {
-      this.validacionID();
       let bandera = true;
       this.fileName = this.file[0].name;
       this.limpiarCarpeta();
@@ -414,7 +412,7 @@ export default {
     },
   },
   created() {
-    /* Object.keys(this.imagenesUrl).length */
+    this.validacionID();
   },
 };
 </script>
