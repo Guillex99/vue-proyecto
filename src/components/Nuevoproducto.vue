@@ -96,10 +96,10 @@
           ></v-text-field>
 
           <v-btn
-            :disabled="!valid"
             color="success"
             class="mr-4"
             @click="agregar()"
+            :disabled="agregado == true"
           >
             Guardar
           </v-btn>
@@ -121,6 +121,7 @@
             </v-col>
             <v-col cols="12" md="6">
               <v-file-input
+                v-show="agregado == false"
                 v-model="file"
                 multiple
                 label="Agregar Imagen"
@@ -246,10 +247,9 @@ export default {
       imagenes: [],
       imagenesUrl: [],
       imagen: null,
-      dialog: false,
       items: ["Android", "iOS"],
-
       productos: [],
+      agregado: false,
     };
   },
   methods: {
@@ -273,6 +273,7 @@ export default {
         fecha: this.fecha,
       };
       db.collection("celulares").add(nuevo);
+      this.agregado = true;
       this.titulo = null;
       this.descripcion = null;
       this.estado = null;
@@ -411,8 +412,8 @@ export default {
       this.imagenesUrl.sort();
     },
   },
-  created() {
-    this.validacionID();
+  mounted() {
+    this.validacionID;
   },
 };
 </script>
