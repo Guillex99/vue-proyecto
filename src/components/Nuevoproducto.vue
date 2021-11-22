@@ -13,13 +13,15 @@
     </div>
 
     <v-row>
-      <v-col cols="12" md="6" lg="6" cl="6">
-        <v-form ref="form" v-model="valid" lazy-validation>
+      <v-col cols="12" md="6" lg="6" xl="6">
+        <div class="pa-2">
+          <label>Estado:</label>
           <v-radio-group v-model="estado">
-            <v-radio :label="`Nuevo`" :value="'Nuevo'"></v-radio>
-            <v-radio :label="`Usado`" :value="'Usado'"></v-radio>
+            <v-radio color="amber" :label="`Nuevo`" :value="'Nuevo'"></v-radio>
+            <v-radio color="amber" :label="`Usado`" :value="'Usado'"></v-radio>
           </v-radio-group>
-
+        </div>
+        <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="marca"
             :rules="marcaRules"
@@ -95,40 +97,35 @@
             label="Precio $"
             required
           ></v-text-field>
-
-          <v-btn
-            color="success"
-            class="mr-4"
-            @click="agregar()"
-            :disabled="agregado == true"
-          >
-            Guardar
-          </v-btn>
-
-          <v-btn color="amber white--text" class="mr-4" @click="cancelar()">
-            Resetear
-          </v-btn>
         </v-form>
       </v-col>
       <v-col cols="12" md="6" lg="6" xl="6">
         <div>
           <v-row>
-            <v-col cols="12" class="text-center">
+            <v-col cols="12" md="12" lg="12" xl="12" class="text-center">
               <span
                 class="subtitle-1 amber--text"
                 style="text-transform: uppercase; font-weight: bold"
                 >Subir Imagenes</span
               >
             </v-col>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="12" lg="12" xl="12">
               <v-file-input
                 v-show="agregado == false"
                 v-model="file"
                 multiple
-                label="Agregar Imagen"
+                label="Agregar..."
                 accept="image/*"
               ></v-file-input>
-              <v-btn :disabled="file == null" @click="upload()">Subir</v-btn>
+              <div class="text-center" style="padding-bottom: 1rem">
+                <v-btn
+                  class="primary"
+                  :disabled="file == null"
+                  @click="upload()"
+                  >Subir</v-btn
+                >
+              </div>
+
               <v-carousel>
                 <v-carousel-item
                   v-for="(imagen, i) in imagenesUrl"
@@ -139,14 +136,14 @@
                 ></v-carousel-item>
               </v-carousel>
             </v-col>
-            <v-col cols="12" md="6" class="hidden-sm-and-down">
+            <v-col cols="12" md="12" class="">
               <v-simple-table>
                 <template v-slot:default>
                   <thead>
                     <tr>
                       <th class="text-left">Nombre</th>
-                      <th class="text-left">Tamaño</th>
                       <th class="text-left">-</th>
+                      <th class="text-left">Accion</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -154,7 +151,9 @@
                       <td>{{ item }}</td>
                       <td></td>
                       <td>
-                        <v-btn @click="eliminarImagen(key)">Borrar</v-btn>
+                        <v-btn @click="eliminarImagen(key)" class="error"
+                          >Borrar</v-btn
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -165,6 +164,20 @@
         </div>
       </v-col>
     </v-row>
+    <div class="text-center" style="padding-top: 1rem">
+      <v-btn
+        color="success"
+        class="mr-4"
+        @click="agregar()"
+        :disabled="agregado == true"
+      >
+        Guardar
+      </v-btn>
+
+      <v-btn color="amber white--text" class="mr-4" @click="cancelar()">
+        Resetear
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -203,15 +216,15 @@ export default {
       agregado: false,
 
       // rules
-      valid: true,
+      /*  valid: true,
 
       marcaRules: [
         (v) => !!v || "Marca es obligatorio",
         (v) =>
           (v && v.length <= 10) || "Marca debe de tener maximo 10 caracteres",
-      ],
+      ], */
 
-      modeloRules: [
+      /*  modeloRules: [
         (v) => !!v || "Modelo es obligatorio",
         (v) =>
           (v && v.length <= 20) || "Modelo debe de tener maximo 20 caracteres",
@@ -231,7 +244,7 @@ export default {
 
       tituloRules: [(v) => !!v || "Titulo es obligatorio"],
 
-      precioRules: [(v) => !!v || "Precio es obligatorio"],
+      precioRules: [(v) => !!v || "Precio es obligatorio"], */
     };
   },
   methods: {
@@ -270,6 +283,8 @@ export default {
       this.vendedor = null;
       this.imagenesUrl = [];
       (this.fecha = new Date()), (this.nid = null), this.listarImagenes();
+      alert('Celular creado correctamente')
+      
     },
     cancelar() {
       this.titulo = null;

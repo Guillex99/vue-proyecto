@@ -22,7 +22,7 @@
           <v-checkbox
             style="margin-bottom: -1.5rem"
             color="amber darken-4"
-            v-for="marca in marcas"
+            v-for="marca in checkmarca"
             :key="marca"
             :label="`${marca}`"
           >
@@ -35,7 +35,7 @@
         <v-checkbox
           style="margin-bottom: -1.5rem"
           color="amber darken-4"
-          v-for="sistema in sistemas"
+          v-for="sistema in checksistemas"
           :key="sistema"
           :label="`${sistema}`"
         >
@@ -57,23 +57,83 @@
 </template>
 
 <script>
+//import {db} from './../db';
 export default {
   name: "Filtrado",
   data() {
     return {
-      marcas: [
+      marcas: [],
+      sistemas: [],
+      pantallas: [],
+      switch1: false,
+      productos: [],
+      checkmarca: [
         "iPhone",
         "Samsung",
         "Huawei",
         "OnePlus",
         "Xiaomi",
-        "Oppo",
-        "LG",
-        "Vivo",
+        "Realme",
       ],
-      sistemas: ["iOS", "Android"],
-      tamanios: ['5"', '5,5"', '6"', '6,5"', '7"'],
+      checksistemas: ["iOS", "Android"],
+      tamanios: ['5"', '5,5"', '6"', '7"', '8"'],
     };
+  },
+  computed: {
+    // filtro por categorias y rango de precios
+    selectedItems: function () {
+      return this.productos.filter(function (newProductos) {
+        if (
+          this.marcas.length > 0 ||
+          this.pantallas.length > 0 ||
+          this.sistemas.length > 0
+        ) {
+          if ((this.marcas.length > 0) & (this.pantallas.length > 0)) {
+            return (
+              this.marcas.includes(newProductos.marca) &
+              this.pantallas.includes(newProductos.pantalla) &
+              (this.switch1 === newProductos.nuevo) &
+              ((newProductos.precio >= this.range[0]) &
+                (newProductos.precio <= this.range[1]))
+            );
+          } else if ((this.marcas.length > 0) & (this.sistemas.length > 0)) {
+            return (
+              this.marcas.includes(newProductos.marca) &
+              this.sistemas.includes(newProductos.sistema) &
+              (this.switch1 === newProductos.nuevo) &
+              ((newProductos.precio >= this.range[0]) &
+                (newProductos.precio <= this.range[1]))
+            );
+          } else if ((this.sistemas.length > 0) & (this.pantallas.length > 0)) {
+            return (
+              this.sistemas.includes(newProductos.sistema) &
+              this.pantallas.includes(newProductos.pantalla) &
+              (this.switch1 === newProductos.nuevo) &
+              ((newProductos.precio >= this.range[0]) &
+                (newProductos.precio <= this.range[1]))
+            );
+          } else {
+            return (
+              (this.marcas.includes(newProductos.marca) ||
+                this.sistemas.includes(newProductos.sistema) ||
+                this.pantallas.includes(newProductos.pantalla)) &
+              (this.switch1 === newProductos.nuevo) &
+              ((newProductos.precio >= this.range[0]) &
+                (newProductos.precio <= this.range[1]))
+            );
+          }
+        } else {
+          return (
+            !this.marcas.includes(newProductos.marca) &
+            !this.sistemas.includes(newProductos.sistema) &
+            !this.pantallas.includes(newProductos.pantalla) &
+            (this.switch1 === newProductos.nuevo) &
+            ((newProductos.precio >= this.range[0]) &
+              (newProductos.precio <= this.range[1]))
+          );
+        }
+      }, this);
+    },
   },
 };
 </script>

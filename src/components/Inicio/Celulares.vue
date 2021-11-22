@@ -15,14 +15,10 @@
           class="mx-auto"
           max-width="344"
           elevation="4"
-          min-height="300px"
+          height="450px"
+          min-height="400px"
+          max-height="600px"
         >
-          <!--  <v-img
-            min-width="100px"
-            max-height="300px"
-            :src='celular.imagenes[0]'
-            margin=""
-          ></v-img> -->
           <v-img
             class="black--text align-end"
             :aspect-ratio="16 / 9"
@@ -35,7 +31,14 @@
           >
             ${{ celular.precio }}
           </v-card-title>
-          <v-card-subtitle style="font-weight: 500; justify-content: justify">
+          <v-card-subtitle
+            style="
+              font-weight: 500;
+              justify-content: justify;
+              padding-bottom: 2rem;
+              height:100px;
+            "
+          >
             {{ celular.titulo }}
           </v-card-subtitle>
           <div class="text-center" style="padding-bottom: 1rem">
@@ -44,7 +47,9 @@
               Ver detalle
             </v-btn>
           </div>
+          
         </v-card>
+
         <!--FIN DE MI CARD-->
       </v-col>
     </v-row>
