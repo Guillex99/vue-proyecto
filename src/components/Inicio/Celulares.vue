@@ -36,7 +36,7 @@
               font-weight: 500;
               justify-content: justify;
               padding-bottom: 2rem;
-              height:100px;
+              height: 100px;
             "
           >
             {{ celular.titulo }}
@@ -47,7 +47,6 @@
               Ver detalle
             </v-btn>
           </div>
-          
         </v-card>
 
         <!--FIN DE MI CARD-->
@@ -57,7 +56,8 @@
 </template>
 
 <script>
-import { db } from "./../../db";
+// import { db } from "./../../db";
+import { bus } from "./../../main";
 
 export default {
   name: "Celulares",
@@ -66,8 +66,14 @@ export default {
       telefonos: [],
     };
   },
-  firestore: {
-    telefonos: db.collection("celulares"),
+  // firestore: {
+  //   telefonos: db.collection("celulares"),
+  // },
+
+  created() {
+    bus.$on("FProductos", (data) => {
+      this.telefonos = data;
+    });
   },
 };
 </script>
