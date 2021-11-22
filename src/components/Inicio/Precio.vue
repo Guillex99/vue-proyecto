@@ -121,7 +121,7 @@
               <v-checkbox
                 style="margin-bottom: -1.5rem"
                 color="amber darken-4"
-                v-for="marca in marcas"
+                v-for="marca in checkmarca"
                 :key="marca"
                 :label="`${marca}`"
               >
@@ -134,7 +134,7 @@
             <v-checkbox
               style="margin-bottom: -1.5rem"
               color="amber darken-4"
-              v-for="sistema in sistemas"
+              v-for="sistema in checksistemas"
               :key="sistema"
               :label="`${sistema}`"
             >
@@ -171,18 +171,21 @@ export default {
     opcion: "",
     drawer: false,
     group: null,
-    marcas: [
-      "iPhone",
-      "Samsung",
-      "Huawei",
-      "OnePlus",
-      "Xiaomi",
-      "Oppo",
-      "LG",
-      "Vivo",
-    ],
-    sistemas: ["iOS", "Android"],
-    tamanios: ['5"', '5,5"', '6"', '6,5"', '7"'],
+    marcas: [],
+      sistemas: [],
+      pantallas: [],
+      switch1: false,
+      productos: [],
+      checkmarca: [
+        "iPhone",
+        "Samsung",
+        "Huawei",
+        "OnePlus",
+        "Xiaomi",
+        "Realme",
+      ],
+      checksistemas: ["iOS", "Android"],
+      tamanios: ['5"', '5,5"', '6"', '7"', '8"'],
   }),
   watch: {
     group() {
