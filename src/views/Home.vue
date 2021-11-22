@@ -17,6 +17,15 @@
         <Paginacion></Paginacion>
       </v-col>
     </v-row>
+    <v-row style="padding-top: 2rem">
+      <v-col cols="12">
+        <v-footer padless>
+          <v-col class="text-center" cols="12">
+            {{ new Date().getFullYear() }} — <strong>Guillermo Enrique Martinez Figueroa MF17006</strong>
+          </v-col>
+        </v-footer>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

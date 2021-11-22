@@ -178,6 +178,13 @@
         Resetear
       </v-btn>
     </div>
+    <br>
+    <v-footer padless>
+      <v-col class="text-center" cols="12">
+        {{ new Date().getFullYear() }} —
+        <strong>Guillermo Enrique Martinez Figueroa MF17006</strong>
+      </v-col>
+    </v-footer>
   </div>
 </template>
 
@@ -283,8 +290,7 @@ export default {
       this.vendedor = null;
       this.imagenesUrl = [];
       (this.fecha = new Date()), (this.nid = null), this.listarImagenes();
-      alert('Celular creado correctamente')
-      
+      alert("Celular creado correctamente");
     },
     cancelar() {
       this.titulo = null;
