@@ -11,12 +11,13 @@
     >
       <h2>Agregar Imagenes</h2>
     </div>
+
     <v-row>
       <v-col cols="12" md="6" lg="6" cl="6">
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-radio-group v-model="estado">
-            <v-radio :label="`Nuevo`" :value="Nuevo"></v-radio>
-            <v-radio :label="`Usado`" :value="Usado"></v-radio>
+            <v-radio :label="`Nuevo`" :value="'Nuevo'"></v-radio>
+            <v-radio :label="`Usado`" :value="'Usado'"></v-radio>
           </v-radio-group>
 
           <v-text-field
@@ -166,70 +167,20 @@
     </v-row>
   </div>
 </template>
-<script>
-export default {
-  name: "Nuevoproducto",
-};
-</script>
 
-<script>
-export default {
-  data: () => ({
-    valid: true,
-    marca: "",
-    marcaRules: [
-      (v) => !!v || "Marca es obligatorio",
-      (v) =>
-        (v && v.length <= 10) || "Marca debe de tener maximo 10 caracteres",
-    ],
-    modelo: "",
-    modeloRules: [
-      (v) => !!v || "Modelo es obligatorio",
-      (v) =>
-        (v && v.length <= 20) || "Modelo debe de tener maximo 20 caracteres",
-    ],
-    pantalla: "",
-    pantallaRules: [(v) => !!v || "Pantalla es obligatorio"],
-    rom: "",
-    romRules: [(v) => !!v || "ROM es obligatorio"],
-    ram: "",
-    ramRules: [(v) => !!v || "RAM es obligatorio"],
-    descripcion: "",
-    descripcionRules: [(v) => !!v || "Descripción es obligatorio"],
-    vendedor: "",
-    vendedorRules: [(v) => !!v || "Vendedor es obligatorio"],
-    telefono_vendedor: "",
-    telefonoRules: [(v) => !!v || "Telefono es obligatorio"],
-    titulo: "",
-    tituloRules: [(v) => !!v || "Titulo es obligatorio"],
-    precio: "",
-    precioRules: [(v) => !!v || "Precio es obligatorio"],
-    sistema: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: false,
-  }),
-  methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-  },
-};
-</script>
 
 <script>
 import { db } from "../db.js";
 import { st } from "../db.js";
 export default {
+  name: "Nuevoproducto",
   data() {
     return {
       estado: "Nuevo",
-      nid: 1,
+      nid: 0,
       titulo: null,
       descripcion: null,
-      estado: null,
+
       marca: null,
       modelo: null,
       pantalla: null,
@@ -250,6 +201,37 @@ export default {
       items: ["Android", "iOS"],
       productos: [],
       agregado: false,
+
+      // rules
+      valid: true,
+
+      marcaRules: [
+        (v) => !!v || "Marca es obligatorio",
+        (v) =>
+          (v && v.length <= 10) || "Marca debe de tener maximo 10 caracteres",
+      ],
+
+      modeloRules: [
+        (v) => !!v || "Modelo es obligatorio",
+        (v) =>
+          (v && v.length <= 20) || "Modelo debe de tener maximo 20 caracteres",
+      ],
+
+      pantallaRules: [(v) => !!v || "Pantalla es obligatorio"],
+
+      romRules: [(v) => !!v || "ROM es obligatorio"],
+
+      ramRules: [(v) => !!v || "RAM es obligatorio"],
+
+      descripcionRules: [(v) => !!v || "Descripción es obligatorio"],
+
+      vendedorRules: [(v) => !!v || "Vendedor es obligatorio"],
+
+      telefonoRules: [(v) => !!v || "Telefono es obligatorio"],
+
+      tituloRules: [(v) => !!v || "Titulo es obligatorio"],
+
+      precioRules: [(v) => !!v || "Precio es obligatorio"],
     };
   },
   methods: {
@@ -259,7 +241,7 @@ export default {
         nid: this.nid,
         titulo: this.titulo,
         descripcion: this.descripcion,
-        estado: this.estado,
+
         marca: this.marca,
         modelo: this.modelo,
         pantalla: this.pantalla,
@@ -308,21 +290,15 @@ export default {
       this.nid = null;
       this.borrado = false;
       this.limpiarCarpeta();
+      console.log("");
     },
     validacionID() {
-      db.collection("celulares")
-        .get()
-        .then((res) => {
-          res.forEach((item) => {
-            this.productos.push(item.data());
-          });
-        });
       if (this.productos.length === 0) {
         this.nid = 1;
       } else {
         this.nid = this.productos.length + 1;
       }
-      console.log(this.nid);
+      console.log("el tamaño: " + this.productos.length);
     },
     limpiarCarpeta() {
       // let images = [];
@@ -347,6 +323,7 @@ export default {
         });
     },
     upload() {
+      this.validacionID();
       let bandera = true;
       this.fileName = this.file[0].name;
       this.limpiarCarpeta();
@@ -412,13 +389,9 @@ export default {
       this.imagenesUrl.sort();
     },
   },
-  mounted() {
-    this.validacionID;
+
+  firestore: {
+    productos: db.collection("celulares"),
   },
 };
 </script>
-
-
-
-
-

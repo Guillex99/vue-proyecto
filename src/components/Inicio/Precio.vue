@@ -45,6 +45,7 @@
           <v-select
             :items="items"
             label="Ordenar por:"
+            v-model="opcion"
             outlined
             prepend-inner-icon="mdi-view-headline"
           ></v-select>
@@ -159,28 +160,15 @@
 <script>
 export default {
   name: "Precio",
-};
-</script>
-<script>
-export default {
+
   data: () => ({
     rules: [
       (value) => !!value || "Required.",
       (value) => (value && value.length >= 3) || "Min 3 characters",
     ],
-  }),
-};
-</script>
-<script>
-export default {
-  data: () => ({
+
     items: ["Fecha", "Precio"],
-  }),
-};
-</script>
-<script>
-export default {
-  data: () => ({
+    opcion: "",
     drawer: false,
     group: null,
     marcas: [
