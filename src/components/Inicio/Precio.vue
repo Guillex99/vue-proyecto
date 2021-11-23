@@ -44,7 +44,7 @@
         >
         <!--REVISAR POR QUE NO MUESTRA LOS CHECKBOX EN EL DRAWER-->
           <v-select
-            :items="items"
+            :items="['Fecha','Precio']"
             label="Ordenar por:"
             v-model="opcion"
             outlined
