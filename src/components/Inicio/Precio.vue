@@ -42,6 +42,7 @@
           sm="4"
           style="padding-left: 1.5rem"
         >
+        <!--REVISAR POR QUE NO MUESTRA LOS CHECKBOX EN EL DRAWER-->
           <v-select
             :items="items"
             label="Ordenar por:"
@@ -96,7 +97,7 @@
         style="margin-left: -1rem; padding-top: -2rem"
       >
         <!--Codigo del Filtrado debe ir aqui-->
-        <v-card elevation="3" class="" style="">
+        <v-card elevation="3" class="d-none d-lg-flex d-xl-flex d-md-flex">
           <v-container
             style="
               padding-left: 1.4rem;
@@ -121,9 +122,46 @@
               <v-checkbox
                 style="margin-bottom: -1.5rem"
                 color="amber darken-4"
-                v-for="marca in checkmarca"
-                :key="marca"
-                :label="`${marca}`"
+                v-model="marcas"
+                value="iPhone"
+                :label="`iPhone`"
+                @click="filtrarProductos()"
+              >
+              </v-checkbox>
+              <v-checkbox
+                style="margin-bottom: -1.5rem"
+                color="amber darken-4"
+                v-model="marcas"
+                value="Samsung"
+                :label="`Samsung`"
+                @click="filtrarProductos()"
+              >
+              </v-checkbox>
+              <v-checkbox
+                style="margin-bottom: -1.5rem"
+                color="amber darken-4"
+                v-model="marcas"
+                value="Realme"
+                :label="`Realme`"
+                @click="filtrarProductos()"
+              >
+              </v-checkbox>
+              <v-checkbox
+                style="margin-bottom: -1.5rem"
+                color="amber darken-4"
+                v-model="marcas"
+                value="Huawei"
+                :label="`Huawei`"
+                @click="filtrarProductos()"
+              >
+              </v-checkbox>
+              <v-checkbox
+                style="margin-bottom: -1.5rem"
+                color="amber darken-4"
+                v-model="marcas"
+                value="Xiaomi"
+                :label="`Xiaomi`"
+                @click="filtrarProductos()"
               >
               </v-checkbox>
             </div>
@@ -134,9 +172,19 @@
             <v-checkbox
               style="margin-bottom: -1.5rem"
               color="amber darken-4"
-              v-for="sistema in checksistemas"
-              :key="sistema"
-              :label="`${sistema}`"
+              v-model="sistemas"
+              value="iOS"
+              :label="`iOS`"
+              @click="filtrarProductos()"
+            >
+            </v-checkbox>
+            <v-checkbox
+              style="margin-bottom: -1.5rem"
+              color="amber darken-4"
+              v-model="sistemas"
+              value="Android"
+              :label="`Android`"
+              @click="filtrarProductos()"
             >
             </v-checkbox>
             <br />
@@ -145,9 +193,28 @@
             <v-checkbox
               style="margin-bottom: -1.5rem"
               color="amber darken-4"
-              v-for="tamanio in tamanios"
-              :key="tamanio"
-              :label="`${tamanio}`"
+              v-model="pantallas"
+              value="5"
+              :label="`5''`"
+              @click="filtrarProductos()"
+            >
+            </v-checkbox>
+            <v-checkbox
+              style="margin-bottom: -1.5rem"
+              color="amber darken-4"
+              v-model="pantallas"
+              value="6"
+              :label="`6''`"
+              @click="filtrarProductos()"
+            >
+            </v-checkbox>
+            <v-checkbox
+              style="margin-bottom: -1.5rem"
+              color="amber darken-4"
+              v-model="pantallas"
+              value="7"
+              :label="`7''`"
+              @click="filtrarProductos()"
             >
             </v-checkbox>
           </v-container>
@@ -157,26 +224,22 @@
   </div>
 </template>
 
+
 <script>
+import { db } from "./../../db";
+import { bus } from "./../../main";
 export default {
   name: "Precio",
-
-  data: () => ({
-    rules: [
-      (value) => !!value || "Required.",
-      (value) => (value && value.length >= 3) || "Min 3 characters",
-    ],
-
-    items: ["Fecha", "Precio"],
-    opcion: "",
-    drawer: false,
-    group: null,
-    marcas: [],
+  data() {
+    return {
+      drawer: false,
+      marcas: [],
       sistemas: [],
       pantallas: [],
       switch1: false,
       productos: [],
-      checkmarca: [
+      range: [0, 1000],
+      opcion: [
         "iPhone",
         "Samsung",
         "Huawei",
@@ -186,7 +249,90 @@ export default {
       ],
       checksistemas: ["iOS", "Android"],
       tamanios: ['5"', '5,5"', '6"', '7"', '8"'],
-  }),
+    };
+  },
+
+  methods: {
+    llenarArray() {
+      db.collection("celulares")
+        .get()
+        .then((data) => {
+          data.forEach((element) => {
+            this.productos.push(element.data());
+            console.log(element.data());
+          });
+        });
+      console.log("el tamanio: " + this.productos.length);
+
+      this.filtrarProductos();
+    },
+
+    filtrarProductos() {
+      bus.$emit("FProductos", this.selectedItems());
+      console.log(this.marcas);
+      console.log(this.selectedItems().length);
+    },
+
+    selectedItems() {
+      if (this.productos.length == 0) {
+        return this.productos;
+      } else {
+        return this.productos.filter(function (newProductos) {
+          console.log("opcion 0");
+          if (
+            this.marcas.length > 0 ||
+            this.pantallas.length > 0 ||
+            this.sistemas.length > 0
+          ) {
+            if ((this.marcas.length > 0) & (this.pantallas.length > 0)) {
+              console.log("opcion 1");
+              return (
+                this.marcas.includes(newProductos.marca) &
+                this.pantallas.includes(newProductos.pantalla)
+              );
+            } else if ((this.marcas.length > 0) & (this.sistemas.length > 0)) {
+              console.log("opcion 2");
+              return (
+                this.marcas.includes(newProductos.marca) &
+                this.sistemas.includes(newProductos.sistema)
+              );
+            } else if (
+              (this.sistemas.length > 0) &
+              (this.pantallas.length > 0)
+            ) {
+              console.log("opcion 3");
+              return (
+                this.sistemas.includes(newProductos.sistema) &
+                this.pantallas.includes(newProductos.pantalla)
+              );
+            } else {
+              console.log("opcion 4");
+              return (
+                this.marcas.includes(newProductos.marca) ||
+                this.sistemas.includes(newProductos.sistema) ||
+                this.pantallas.includes(newProductos.pantalla)
+              );
+            }
+          } else {
+            console.log("opcion 5");
+            return (
+              !this.marcas.includes(newProductos.marca) &
+              !this.sistemas.includes(newProductos.sistema) &
+              !this.pantallas.includes(newProductos.pantalla)
+            );
+          }
+        }, this);
+      }
+    },
+  },
+
+  firestore: {
+    productos: db.collection("celulares"),
+  },
+
+  mounted() {
+    this.filtrarProductos();
+  },
   watch: {
     group() {
       this.drawer = false;

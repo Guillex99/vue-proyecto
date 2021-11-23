@@ -11,6 +11,7 @@
       </v-col>
       <v-col cols="12" lg="9" md="12" sm="6" xs="6" class="">
         <Precio></Precio>
+        
         <Celulares></Celulares>
       </v-col>
       <v-col>

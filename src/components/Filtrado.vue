@@ -41,8 +41,26 @@
             style="margin-bottom: -1.5rem"
             color="amber darken-4"
             v-model="marcas"
+            value="Realme"
+            :label="`Realme`"
+            @click="filtrarProductos()"
+          >
+          </v-checkbox>
+          <v-checkbox
+            style="margin-bottom: -1.5rem"
+            color="amber darken-4"
+            v-model="marcas"
             value="Huawei"
             :label="`Huawei`"
+            @click="filtrarProductos()"
+          >
+          </v-checkbox>
+          <v-checkbox
+            style="margin-bottom: -1.5rem"
+            color="amber darken-4"
+            v-model="marcas"
+            value="Xiaomi"
+            :label="`Xiaomi`"
             @click="filtrarProductos()"
           >
           </v-checkbox>
@@ -77,7 +95,16 @@
           color="amber darken-4"
           v-model="pantallas"
           value="5"
-          :label="`5`"
+          :label="`5''`"
+          @click="filtrarProductos()"
+        >
+        </v-checkbox>
+        <v-checkbox
+          style="margin-bottom: -1.5rem"
+          color="amber darken-4"
+          v-model="pantallas"
+          value="6"
+          :label="`6''`"
           @click="filtrarProductos()"
         >
         </v-checkbox>
@@ -86,7 +113,7 @@
           color="amber darken-4"
           v-model="pantallas"
           value="7"
-          :label="`7`"
+          :label="`7''`"
           @click="filtrarProductos()"
         >
         </v-checkbox>
@@ -201,6 +228,11 @@ export default {
 
   mounted() {
     this.filtrarProductos();
+  },
+  watch: {
+    group() {
+      this.drawer = false;
+    },
   },
 };
 </script>
