@@ -15,7 +15,8 @@
         <Celulares></Celulares>
       </v-col>
       <v-col>
-        <Paginacion></Paginacion>
+        <!--<Paginacion></Paginacion>-->
+        
       </v-col>
     </v-row>
     <v-row style="padding-top: 2rem">
@@ -34,7 +35,7 @@
 import Filtrado from "./../components/Filtrado.vue";
 import Precio from "./../components/Inicio/Precio.vue";
 import Celulares from "./../components/Inicio/Celulares.vue";
-import Paginacion from "./../components/Inicio/Paginacion.vue";
+//import Paginacion from "./../components/Inicio/Paginacion.vue";
 export default {
   name: "Home",
 
@@ -42,7 +43,7 @@ export default {
     Filtrado,
     Precio,
     Celulares,
-    Paginacion,
+   // Paginacion,
   },
 };
 </script>
