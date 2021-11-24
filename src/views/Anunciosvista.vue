@@ -1,5 +1,7 @@
 <template>
+
   <v-container>
+    <NavbarGrande></NavbarGrande>
     <v-row>
       <v-col cols="12" md="6" lg="6" xl="6">
         <v-carousel :show-arrows="false">
@@ -98,8 +100,9 @@
 
 <script>
 import { db } from "./../db";
+import NavbarGrande from "./../components/navbars/NavbarGrande.vue"
 export default {
-  components: {},
+  components: {NavbarGrande},
   data() {
     return {
       anuncio: {},

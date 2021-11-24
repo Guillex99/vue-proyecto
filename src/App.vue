@@ -1,6 +1,8 @@
 <template>
   <v-app id="inspire">
-    <Navbars></Navbars>
+    <!-- <NavbarGrande
+    @goCarrito = "goCarrito()"
+    ></NavbarGrande> -->
     <v-main>
       <router-view />
       
@@ -13,15 +15,16 @@
 
 <script>
 //import Filtrado from "./components/Filtrado.vue";
-import Navbars from "./components/navbars/Navbars.vue";
-
+//import NavbarGrande from "./components/navbars/NavbarGrande.vue";
+//import {bus} from "./main";
 export default {
   name: "App",
   data: () => ({
     //
   }),
   components: {
-    Navbars,
+   // NavbarGrande,
   },
+
 };
 </script>

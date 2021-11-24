@@ -85,14 +85,16 @@
         <v-icon color="white"> mdi-plus </v-icon>
       </v-btn>
       &nbsp; &nbsp;
-      <v-btn
-        class="d-none d-sm-none d-lg-flex d-xl-flex d-md-flex"
-        color="white"
-        icon
-        elevation="3"
-      >
-        <v-icon color="white"> mdi-cart-variant </v-icon>
-      </v-btn>
+      <router-link :to="{ name: 'Cart', params: { carrito: carrito } }" style="text-decoration:none;">
+        <v-btn
+          class="d-none d-sm-none d-lg-flex d-xl-flex d-md-flex"
+          color="white"
+          icon
+          elevation="3"
+        >
+          <v-icon color="white"> mdi-cart-variant </v-icon>
+        </v-btn>
+      </router-link>
 
       <!--Navigation Drawer-->
       <v-navigation-drawer
@@ -140,14 +142,16 @@
             <v-divider></v-divider>
             <v-list-item>
               <v-icon color="black"> mdi-cart </v-icon>
-              <v-btn
-                class="text-center"
-                color="black"
-                plain
-                :to="{ path: '/' }"
-              >
-                Carrito
-              </v-btn>
+              <router-link :to="{ name: 'Cart', params: { carrito: carrito } }" style="text-decoration:none;">
+                <v-btn
+                  class="text-center"
+                  color="black"
+                  plain
+                  
+                >
+                  Carrito
+                </v-btn>
+              </router-link>
             </v-list-item>
             <v-divider></v-divider>
             <v-list-item>
@@ -174,36 +178,7 @@ import Nuevoproducto from "./../Nuevoproducto.vue";
 export default {
   components: Nuevoproducto,
   name: "NavbarGrande",
-  data: () => ({
-    links: ["CellPhone Store"],
-  }),
-};
-</script>
-<script>
-import Nuevoproducto from "./../Nuevoproducto.vue";
-export default {
-  components: {
-    Nuevoproducto,
-  },
-  data() {
-    return {
-      items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard" },
-        { title: "Photos", icon: "mdi-image" },
-        { title: "About", icon: "mdi-help-box" },
-      ],
-      right: null,
-    };
-  },
-  methods: {
-    abrirModal() {
-      this.$refs.modal.dialog = true;
-    },
-  },
-};
-</script>
-<script>
-export default {
+  props: ["carrito"],
   data: () => ({
     drawer: false,
     group: null,
@@ -215,3 +190,4 @@ export default {
   },
 };
 </script>
+

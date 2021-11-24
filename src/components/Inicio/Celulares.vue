@@ -46,6 +46,14 @@
               <!--Ver detalle-->
               Ver detalle
             </v-btn>
+
+            <v-btn rounded color="orange" dark
+            @click="agregar(celular)"
+            
+            >
+              <!--Ver detalle-->
+              <v-icon>mdi-cart</v-icon>
+            </v-btn>
           </div>
         </v-card>
 
@@ -65,10 +73,16 @@ export default {
     return {
       telefonos: [],
     };
+  }, 
+  methods: {
+    agregar(anuncio){
+      //this.anuncio.imagen = anuncio.imagenes[0];
+      this.$emit('addCart', anuncio);
+    }
   },
-  // firestore: {
-  //   telefonos: db.collection("celulares"),
-  // },
+   /* firestore: {
+     telefonos: db.collection("celulares"),
+   }, */
 
   created() {
     bus.$on("FProductos", (data) => {
