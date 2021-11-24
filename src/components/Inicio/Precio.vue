@@ -97,7 +97,7 @@
         style="margin-left: -1rem; padding-top: -2rem"
       >
         <!--Codigo del Filtrado debe ir aqui-->
-        <v-card elevation="3" class="d-none d-lg-flex d-xl-flex d-md-flex">
+        <v-card elevation="3" class="d-sm-flex d-xs-flex">
           <v-container
             style="
               padding-left: 1.4rem;
