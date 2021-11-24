@@ -42,9 +42,9 @@
           sm="4"
           style="padding-left: 1.5rem"
         >
-        <!--REVISAR POR QUE NO MUESTRA LOS CHECKBOX EN EL DRAWER-->
+          <!--REVISAR POR QUE NO MUESTRA LOS CHECKBOX EN EL DRAWER-->
           <v-select
-            :items="['Fecha','Precio']"
+            :items="['Fecha', 'Precio']"
             label="Ordenar por:"
             v-model="opcion"
             outlined
@@ -112,6 +112,9 @@
             <v-switch
               color="amber"
               style="font-weight: bold"
+              v-model="switch1"
+              value="Nuevo"
+              @click="filtrarProductos()"
               inset
               label="Nuevo"
             ></v-switch>
@@ -236,17 +239,10 @@ export default {
       marcas: [],
       sistemas: [],
       pantallas: [],
-      switch1: false,
+      switch1: [],
       productos: [],
       range: [0, 1000],
-      opcion: [
-        "iPhone",
-        "Samsung",
-        "Huawei",
-        "OnePlus",
-        "Xiaomi",
-        "Realme",
-      ],
+      opcion: ["iPhone", "Samsung", "Huawei", "OnePlus", "Xiaomi", "Realme"],
       checksistemas: ["iOS", "Android"],
       tamanios: ['5"', '5,5"', '6"', '7"', '8"'],
     };
@@ -274,6 +270,14 @@ export default {
     },
 
     selectedItems() {
+      let cadena;
+      if (this.switch1.length > 0) {
+        cadena = "Nuevo";
+        console.log(cadena);
+      } else if (this.switch1 == 0) {
+        cadena = "Usado";
+        console.log(cadena);
+      }
       if (this.productos.length == 0) {
         return this.productos;
       } else {

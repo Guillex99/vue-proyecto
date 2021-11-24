@@ -8,12 +8,15 @@
         <h2 class="amber--text text-center" style="padding-top: 1rem">
           Filtrar por:
         </h2>
-
         <v-switch
+          v-model="switch1"
           color="amber"
           style="font-weight: bold"
           inset
           label="Nuevo"
+          selected
+          value="Nuevo"
+          @click="filtrarProductos()"
         ></v-switch>
         <br />
         <v-divider></v-divider>
@@ -132,7 +135,7 @@ export default {
       marcas: [],
       sistemas: [],
       pantallas: [],
-      switch1: false,
+      switch1: [],
       productos: [],
       range: [0, 1000],
       checkmarca: [
@@ -170,6 +173,14 @@ export default {
     },
 
     selectedItems() {
+      let cadena;
+      if (this.switch1.length > 0) {
+        cadena = "Nuevo";
+        console.log(cadena);
+      } else if (this.switch1 == 0) {
+        cadena = "Usado";
+        console.log(cadena);
+      }
       if (this.productos.length == 0) {
         return this.productos;
       } else {
@@ -184,13 +195,15 @@ export default {
               console.log("opcion 1");
               return (
                 this.marcas.includes(newProductos.marca) &
-                this.pantallas.includes(newProductos.pantalla)
+                this.pantallas.includes(newProductos.pantalla) &
+                (cadena === newProductos.estado)
               );
             } else if ((this.marcas.length > 0) & (this.sistemas.length > 0)) {
               console.log("opcion 2");
               return (
                 this.marcas.includes(newProductos.marca) &
-                this.sistemas.includes(newProductos.sistema)
+                this.sistemas.includes(newProductos.sistema) &
+                (cadena === newProductos.estado)
               );
             } else if (
               (this.sistemas.length > 0) &
@@ -199,14 +212,16 @@ export default {
               console.log("opcion 3");
               return (
                 this.sistemas.includes(newProductos.sistema) &
-                this.pantallas.includes(newProductos.pantalla)
+                this.pantallas.includes(newProductos.pantalla) &
+                (cadena === newProductos.estado)
               );
             } else {
               console.log("opcion 4");
               return (
                 this.marcas.includes(newProductos.marca) ||
                 this.sistemas.includes(newProductos.sistema) ||
-                this.pantallas.includes(newProductos.pantalla)
+                this.pantallas.includes(newProductos.pantalla) &
+                  (cadena === newProductos.estado)
               );
             }
           } else {
@@ -214,7 +229,8 @@ export default {
             return (
               !this.marcas.includes(newProductos.marca) &
               !this.sistemas.includes(newProductos.sistema) &
-              !this.pantallas.includes(newProductos.pantalla)
+              !this.pantallas.includes(newProductos.pantalla) &
+              (cadena === newProductos.estado)
             );
           }
         }, this);
