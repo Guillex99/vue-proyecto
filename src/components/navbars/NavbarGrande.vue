@@ -85,7 +85,10 @@
         <v-icon color="white"> mdi-plus </v-icon>
       </v-btn>
       &nbsp; &nbsp;
-      <router-link :to="{ name: 'Cart', params: { carrito: carrito } }" style="text-decoration:none;">
+      <router-link
+        :to="{ name: 'Cart', params: { carrito: carrito } }"
+        style="text-decoration: none"
+      >
         <v-btn
           class="d-none d-sm-none d-lg-flex d-xl-flex d-md-flex"
           color="white"
@@ -142,15 +145,11 @@
             <v-divider></v-divider>
             <v-list-item>
               <v-icon color="black"> mdi-cart </v-icon>
-              <router-link :to="{ name: 'Cart', params: { carrito: carrito } }" style="text-decoration:none;">
-                <v-btn
-                  class="text-center"
-                  color="black"
-                  plain
-                  
-                >
-                  Carrito
-                </v-btn>
+              <router-link
+                :to="{ name: 'Cart', params: { carrito: carrito } }"
+                style="text-decoration: none"
+              >
+                <v-btn class="text-center" color="black" plain> Carrito </v-btn>
               </router-link>
             </v-list-item>
             <v-divider></v-divider>
@@ -190,4 +189,3 @@ export default {
   },
 };
 </script>
-

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavbarGrande v-bind:carrito="this.$route.params.carrito"></NavbarGrande>
+    <NavbarGrande v-bind:carrito="this.carrito"></NavbarGrande>
     <br />
     <h1 class="text-center amber--text">Carrito</h1>
     <br />
@@ -49,24 +49,65 @@
               <span style="font-weight: 300">{{ anuncio.producto.ram }}GB</span>
             </h4>
           </v-col>
-          <v-col cols="4" md="4" lg="4" xl="4">
+          <v-col cols="4" md="2" lg="2" xl="2">
             <div class="mx-auto">
-              <v-btn             
+              <v-btn
                 @click="menos(id)"
                 v-if="anuncio.cantidad == 1"
-                style="background-color:red;"
+                style="background-color: red"
               >
                 <v-icon color="white">mdi-delete</v-icon>
               </v-btn>
 
-              <v-btn style="" @click="menos(id)" v-if="anuncio.cantidad > 1"
+              <v-btn @click="menos(id)" v-if="anuncio.cantidad > 1"
                 ><v-icon>mdi-minus</v-icon>
               </v-btn>
               <div class="d-inline col-1">
                 {{ anuncio.cantidad }}
               </div>
-              <v-btn style="" @click="mas(id)">
+              <v-btn @click="mas(id)">
                 <v-icon>mdi-plus</v-icon>
+              </v-btn>
+            </div>
+          </v-col>
+
+          <v-col cols="4" md="2" lg="2" xl="2">
+            <div class="mx-auto" style="text-align: center">
+              <span>${{ anuncio.subtotal }}</span>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card>
+
+      <v-card
+        elevation="6"
+        style="padding-top: 1rem; margin-bottom: 2rem; padding-bottom: 1rem"
+      >
+        <v-row>
+          <v-col cols="12" md="6" lg="6" xl="6">
+            <strong>Total a pagar: ${{ total }}</strong>
+          </v-col>
+
+          <v-col cols="12" md="6" lg="6" xl="6" style="text-align: center">
+            <div class="d-md-inline mb-3 mb-xl-auto mt-3 mt-xl-auto mr-xl-3">
+              <router-link
+              style="text-decoration: none;"
+                :to="{
+                  name: 'Home',
+                  params: { carrito: $route.params.carrito },
+                }"
+              >
+                <v-btn class="">
+                  <span class="">CONTINUAR COMPRANDO &nbsp;</span>
+                  <v-icon>mdi-cart</v-icon>
+                </v-btn>
+              </router-link>
+            </div>
+
+            <div class="d-md-inline">
+              <v-btn class="">
+                FINALIZAR LA COMPRA &nbsp;
+                <v-icon>mdi-credit-card</v-icon>
               </v-btn>
             </div>
           </v-col>
@@ -87,36 +128,53 @@ export default {
   data() {
     return {
       carrito: [],
-      
     };
   },
+
+  computed: {
+    total() {
+      let totalPago = 0.0;      
+      for (let index = 0; index < this.$route.params.carrito.length; index++) {
+        totalPago = totalPago + this.carrito[index].subtotal;
+      }
+      return totalPago;
+    },
+  },
+
+  mounted() {
+    if (this.$route.params.carrito != undefined) {
+      this.carrito = this.$route.params.carrito;
+    }    
+  },
+
   methods: {
-    menos(id){
-      if(this.$route.params.carrito[id].cantidad == 1){
-        this.$route.params.carrito.splice(id, 1)
-      }else{
-        this.$route.params.carrito[id].cantidad = this.$route.params.carrito[id].cantidad - 1 
-        this.$route.params.carrito[id].subtotal = this.$route.params.carrito[id].cantidad * this.$route.params.carrito[id].producto.precio
+    menos(id) {
+      if (this.$route.params.carrito[id].cantidad == 1) {
+        this.$route.params.carrito.splice(id, 1);
+        this.carrito = this.$route.params.carrito.slice()
+      } else {
+        this.$route.params.carrito[id].cantidad =
+          this.$route.params.carrito[id].cantidad - 1;
+        this.$route.params.carrito[id].subtotal =
+          this.$route.params.carrito[id].cantidad *
+          this.$route.params.carrito[id].producto.precio;
       }
     },
 
-    mas(id){
-      this.$route.params.carrito[id].cantidad = this.$route.params.carrito[id].cantidad + 1
-      this.$route.params.carrito[id].subtotal = this.$route.params.carrito[id].cantidad * this.$route.params.carrito[id].producto.precio
+    mas(id) {
+      this.$route.params.carrito[id].cantidad =
+        this.$route.params.carrito[id].cantidad + 1;
+      this.$route.params.carrito[id].subtotal =
+        this.$route.params.carrito[id].cantidad *
+        this.$route.params.carrito[id].producto.precio;
     },
-    },
+  },
 
   firestore: {
     carrito: db.collection("celulares"),
   },
-  mounted() {
-    console.log(this.$route.params.carrito);
-    // if (this.$route.params.carrito != undefined) {
 
-    //}
-  },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -72,7 +72,7 @@ export default {
   methods: {
     addCart(anuncio) {
       this.mensaje = false;
-      console.log(anuncio);
+      // console.log(anuncio);
       let item = {};
       let incluye = false;
       let contador = 0;
@@ -107,7 +107,7 @@ export default {
           // this.showToast("info");
         }
       }
-      console.log(this.carrito);
+      // console.log(this.carrito);
     },
     /* goCarrito() {
       /* bus.$on("goCarrito", () => {
