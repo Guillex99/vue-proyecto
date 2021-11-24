@@ -16,6 +16,8 @@
             label="Precio:"
             placeholder="Min..."
             outlined
+            v-model="minimo"
+            
           ></v-text-field>
         </v-col>
 
@@ -25,14 +27,18 @@
           md="2"
           class="d-none d-sm-none d-md-flex d-lg-flex d-xl-flex"
         >
+      
           <v-text-field
             type="number"
             min="0"
             color="amber"
             label="Hasta:"
             placeholder="Max.."
+            v-model="maximo"
             outlined
+            
           ></v-text-field>
+          
         </v-col>
         <v-col
           cols="9"
@@ -74,17 +80,6 @@
           lg="1"
           class="d-none d-sm-none d-md-flex d-lg-flex d-xl-flex"
         >
-          <v-btn
-            color="orange"
-            block
-            x-large
-            elevation="2"
-            outlined
-            margin="auto"
-          >
-            <v-icon> mdi-magnify </v-icon>
-            Buscar</v-btn
-          >
         </v-col>
       </v-row>
       <v-navigation-drawer
@@ -241,7 +236,9 @@ export default {
       pantallas: [],
       switch1: [],
       productos: [],
-      range: [0, 1000],
+      minimo: 0,
+      maximo: 1000,
+
       opcion: ["iPhone", "Samsung", "Huawei", "OnePlus", "Xiaomi", "Realme"],
       checksistemas: ["iOS", "Android"],
       tamanios: ['5"', '5,5"', '6"', '7"', '8"'],
@@ -293,14 +290,18 @@ export default {
               return (
                 this.marcas.includes(newProductos.marca) &
                 this.pantallas.includes(newProductos.pantalla) &
-                (cadena === newProductos.estado)
+                (cadena === newProductos.estado) &
+                ((newProductos.precio >= parseInt(this.minimo)) &
+                  (newProductos.precio <= parseInt(this.maximo)))                 
               );
             } else if ((this.marcas.length > 0) & (this.sistemas.length > 0)) {
               console.log("opcion 2");
               return (
                 this.marcas.includes(newProductos.marca) &
                 this.sistemas.includes(newProductos.sistema) &
-                (cadena === newProductos.estado)
+                (cadena === newProductos.estado) &
+                ((newProductos.precio >= parseInt(this.minimo)) &
+                  (newProductos.precio <= parseInt(this.maximo)))
               );
             } else if (
               (this.sistemas.length > 0) &
@@ -310,7 +311,9 @@ export default {
               return (
                 this.sistemas.includes(newProductos.sistema) &
                 this.pantallas.includes(newProductos.pantalla) &
-                (cadena === newProductos.estado)
+                (cadena === newProductos.estado) &
+                ((newProductos.precio >= parseInt(this.minimo)) &
+                  (newProductos.precio <= parseInt(this.maximo)))
               );
             } else {
               console.log("opcion 4");
@@ -318,17 +321,22 @@ export default {
                 this.marcas.includes(newProductos.marca) ||
                 this.sistemas.includes(newProductos.sistema) ||
                 this.pantallas.includes(newProductos.pantalla) &
-                (cadena === newProductos.estado)
+                  (cadena === newProductos.estado) &
+                  ((newProductos.precio >= parseInt(this.minimo)) &
+                    (newProductos.precio <= parseInt(this.maximo)))
               );
             }
           } else {
-            console.log("opcion 5");
+            console.log("opcion 5") ;
             return (
               !this.marcas.includes(newProductos.marca) &
               !this.sistemas.includes(newProductos.sistema) &
               !this.pantallas.includes(newProductos.pantalla) &
-                (cadena === newProductos.estado)
+              (cadena === newProductos.estado) &
+              ((newProductos.precio >= parseInt(this.minimo)) &
+                (newProductos.precio <= parseInt(this.maximo)))
             );
+            
           }
         }, this);
       }
@@ -348,6 +356,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style lang="scss" scoped></style>
