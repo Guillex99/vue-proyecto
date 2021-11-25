@@ -20,7 +20,7 @@
             >
             </v-img>
           </v-col>
-          <v-col cols="5" xs="3" sm="3" md="5" lg="5" xl="5">
+          <v-col cols="5" xs="3" sm="3" md="3" lg="3" xl="3">
             <h3>
               <span style="font-weight: 500; color: orange"
                 >{{ anuncio.producto.marca }}
@@ -49,7 +49,7 @@
               <span style="font-weight: 300">{{ anuncio.producto.ram }}GB</span>
             </h4>
           </v-col>
-          <v-col cols="4" md="2" lg="2" xl="2">
+          <v-col cols="12" sm="12" xs="12" md="2" lg="2" xl="2" class="text-center">
             <div class="mx-auto">
               <v-btn
                 @click="menos(id)"
@@ -71,9 +71,9 @@
             </div>
           </v-col>
 
-          <v-col cols="4" md="2" lg="2" xl="2">
-            <div class="mx-auto" style="text-align: center">
-              <span>${{ anuncio.subtotal }}</span>
+          <v-col cols="12" xs="6" sm="6" md="12" lg="12" xl="12" class="text-center">
+            <div class="" style="text-align: center">
+              <h3>Subtotal: <span style="color:green;">${{ anuncio.subtotal }}</span> </h3>
             </div>
           </v-col>
         </v-row>
@@ -84,28 +84,29 @@
         style="padding-top: 1rem; margin-bottom: 2rem; padding-bottom: 1rem"
       >
         <v-row>
-          <v-col cols="12" md="6" lg="6" xl="6">
-            <strong>Total a pagar: ${{ total }}</strong>
+          <v-col class="text-center" cols="12" sm="12" xs="12" md="12" lg="12" xl="12">
+            <h3>Total a pagar: <span style="color:green;">${{ total }}</span> </h3>
           </v-col>
 
-          <v-col cols="12" md="6" lg="6" xl="6" style="text-align: center">
-            <div class="d-md-inline mb-3 mb-xl-auto mt-3 mt-xl-auto mr-xl-3">
+          <v-col cols="12" sm="12" xs="12" md="12" lg="12" xl="12" style="text-align: center">
+            <div class="" style="margin-bottom:1rem;">
               <router-link
-              style="text-decoration: none;"
+              style="text-decoration: none; margin-bottom:1rem;"
                 :to="{
                   name: 'Home',
                   params: { carrito: $route.params.carrito },
                 }"
               >
-                <v-btn class="">
+                <v-btn class="amber">
                   <span class="">CONTINUAR COMPRANDO &nbsp;</span>
                   <v-icon>mdi-cart</v-icon>
                 </v-btn>
               </router-link>
+              
             </div>
-
-            <div class="d-md-inline">
-              <v-btn class="">
+            
+            <div class="">
+              <v-btn class="success">
                 FINALIZAR LA COMPRA &nbsp;
                 <v-icon>mdi-credit-card</v-icon>
               </v-btn>

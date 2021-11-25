@@ -33,27 +33,33 @@
           </v-card-title>
           <v-card-subtitle
             style="
-              font-weight: 500;
-              justify-content: justify;
-              padding-bottom: 2rem;
-              height: 100px;
+            padding-top:0.5rem;
+            font-family:Roboto;
+            font-size:1.2rem;
+              font-weight: 400;
+              text-align: center;
+              color: black;
+              height: 80px;
             "
           >
-            {{ celular.titulo }}
+            {{ celular.marca }} {{celular.modelo}}
           </v-card-subtitle>
-          <div class="text-center" style="padding-bottom: 1rem">
-            <v-btn rounded color="amber" dark :to="'/detalle/' + celular.id">
-              <!--Ver detalle-->
-              Ver detalle
-            </v-btn>
-
-            <v-btn rounded color="orange" dark
-            @click="agregar(celular)"
-            
-            >
-              <!--Ver detalle-->
-              <v-icon>mdi-cart</v-icon>
-            </v-btn>
+          <div
+            class="text-center"
+            style="padding-bottom: 1rem; padding-right: 0rem"
+          >
+            <div style="padding-bottom:0.5rem;">
+              <v-btn rounded color="amber" dark :to="'/detalle/' + celular.id">
+                <!--Ver detalle-->
+                Ver detalle
+              </v-btn>
+            </div>
+            <div>
+              <v-btn rounded color="orange" dark @click="agregar(celular)">
+                <!--Ver detalle-->
+                <v-icon>mdi-cart</v-icon>
+              </v-btn>
+            </div>
           </div>
         </v-card>
 
@@ -73,14 +79,14 @@ export default {
     return {
       telefonos: [],
     };
-  }, 
-  methods: {
-    agregar(anuncio){
-      //this.anuncio.imagen = anuncio.imagenes[0];
-      this.$emit('addCart', anuncio);
-    }
   },
-   /* firestore: {
+  methods: {
+    agregar(anuncio) {
+      //this.anuncio.imagen = anuncio.imagenes[0];
+      this.$emit("addCart", anuncio);
+    },
+  },
+  /* firestore: {
      telefonos: db.collection("celulares"),
    }, */
 

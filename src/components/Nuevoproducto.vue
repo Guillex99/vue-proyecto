@@ -2,14 +2,14 @@
 <template>
   <div>
     <div
-      class="text-center amber--text"
+      class="text-center orange--text"
       style="
         text-transform: uppercase;
         padding-top: 1rem;
         padding-bottom: 1.5rem;
       "
     >
-      <h2>Agregar Imagenes</h2>
+      <h2>Nuevo Producto</h2>
     </div>
 
     <v-row>
